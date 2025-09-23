@@ -32,18 +32,19 @@ function divide(num1, num2) {
 function operate(type, num1, num2) {
     let solution = 10;
     if (type === "+") {
-        solution = add(num1,num2);
+        solution = add(num1, num2);
     }
     else if (type === "-") {
-        solution = subtract(num1,num2);
+        solution = subtract(num1, num2);
     }
     else if (type === "*") {
-        solution = multiply(num1,num2);
+        solution = multiply(num1, num2);
     }
     else {
-        solution = divide(num1,num2);
+        solution = divide(num1, num2);
     }
-    displayNumbers(solution)
+    console.log(`${solution}`)
+    displayNumbers(solution);
 }
 
 // Event delegation
@@ -54,25 +55,30 @@ buttonsContainer.addEventListener("click", function (e) {
         // true si numPressed NO ES UN NUMERO
         // cuando se le de a "=" se llama a operate
         if (isNaN(numPressed) && numPressed === "=") {
-            operate(operator, number1, number2);
+            operate(operator, parseInt(number1), parseInt(number2));
         }
         // cuando se presione un operator se almacena el numero anterior y se lee otro
         else if (isNaN(numPressed)) {
             number1 = number2;
             operator = numPressed;
             number2 = 0;
+            displayNumbers(number2);
+
         }
         else {
-            if (number2 === 0 ) {
+            if (number2 === 0) {
                 number2 = numPressed;
+                displayNumbers(number2);
+
             }
             else {
                 number2 += numPressed;
+                displayNumbers(number2);
+
             }
-            
+
         }
         // se actualiza el display (y tambien intermediamente con cada numero) 
-        displayNumbers(number2);
     }
 });
 
