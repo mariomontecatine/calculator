@@ -3,7 +3,7 @@ let number1;
 let number2 = "0";
 let solution;
 
-const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR", "."];
+const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "AC", ".", "DELETE"];
 const buttonsContainer = document.getElementById("buttonsContainer");
 const display = document.getElementById("display");
 const alert = document.getElementById("alert");
@@ -76,7 +76,7 @@ buttonsContainer.addEventListener("click", function (e) {
             }
             return;
         }
-        else if (numPressed === "CLEAR") {
+        else if (numPressed === "AC") {
             number2 = "0";
             number1 = "";
             operator = null;
@@ -89,6 +89,10 @@ buttonsContainer.addEventListener("click", function (e) {
                 displayNumbers(number2);
             }
             return;
+        }
+        else if (numPressed === "DELETE") {
+            number2 = number2.slice(0, -1);
+            displayNumbers(number2);
         }
         // true si numPressed NO ES UN NUMERO
         else if (isNaN(numPressed)) {
