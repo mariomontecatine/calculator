@@ -4,6 +4,11 @@ let number2 = "0";
 let solution;
 
 const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "AC", ".", "DELETE"];
+const validKeys = new Set([
+  "0","1","2","3","4","5","6","7","8","9",
+  "+","-","*","/",
+  ".", "Enter", "=", "Backspace", "Escape"
+]);
 const buttonsContainer = document.getElementById("buttonsContainer");
 const display = document.getElementById("display");
 const alert = document.getElementById("alert");
@@ -48,12 +53,25 @@ function operate(type, num1, num2) {
     displayNumbers(solution);
 }
 
+buttonsContainer.addEventListener("click", handleInput);
+document.addEventListener("keydown", function(e) {
+    if(!validKeys.has(e.key)) return;
+    handleInput(e);
+});
+
 // Event delegation
-buttonsContainer.addEventListener("click", function (e) {
-    if (e.target && e.target.nodeName === "BUTTON") {
-        let numPressed = e.target.id.replace("btn", "");
+function handleInput(e) {
+    let numPressed;
+    if (e.type === "click") {
+        if (!(e.target && e.target.nodeName === "BUTTON")) return;
+        numPressed = e.target.id.replace("btn", "");
+    } 
+    else if (e.type === "keydown") {
+        numPressed = e.key; 
+    }
+
         alert.textContent = "";
-        if (numPressed === "=") {
+        if (numPressed === "=" || numPressed === "Enter") {
             if (operator && number1 !== "" && number2 !== "") {
                 if (number2 === "0" && operator === "/") {
                     alert.textContent = "That was such a extremely difficult question for me..."
@@ -90,8 +108,11 @@ buttonsContainer.addEventListener("click", function (e) {
             }
             return;
         }
-        else if (numPressed === "DELETE") {
-            number2 = number2.slice(0, -1);
+        else if (numPressed === "DELETE" || numPressed === "Backspace") {
+              number2 = number2.slice(0, -1);
+            if (number2.length === 0) {
+                        number2 = "0";
+                }
             displayNumbers(number2);
         }
         // true si numPressed NO ES UN NUMERO
@@ -131,14 +152,22 @@ buttonsContainer.addEventListener("click", function (e) {
             displayNumbers(number2);
 
         }
-    }
-});
+    };
 
 let displayCurrentValue = "0";
 function displayNumbers(num) {
     displayCurrentValue = num;
     display.textContent = displayCurrentValue;
 }
+
+
+// Keyboard support
+
+// document.addEventListener("keydown", (e) => {
+//     if (e.key === ) {
+        
+//     }
+// })
 
 
 
