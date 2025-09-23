@@ -3,10 +3,11 @@ let number1;
 let number2 = "0";
 let solution;
 
-const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR"];
+const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR", "."];
 const buttonsContainer = document.getElementById("buttonsContainer");
 const display = document.getElementById("display");
 const alert = document.getElementById("alert");
+
 
 buttonValues.forEach(val => {
     const btn = document.createElement("button");
@@ -80,6 +81,13 @@ buttonsContainer.addEventListener("click", function (e) {
             number1 = "";
             operator = null;
             displayNumbers(number2);
+            return;
+        }
+        else if (numPressed === ".") {
+            if (!number2.includes(".")) {
+                number2 += numPressed;
+                displayNumbers(number2);
+            }
             return;
         }
         // true si numPressed NO ES UN NUMERO
