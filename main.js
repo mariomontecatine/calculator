@@ -1,6 +1,17 @@
 let operator;
 let number1;
-let number2;
+let number2 = 0;
+
+const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR"];
+const buttonsContainer = document.getElementById("buttonsContainer");
+const display = document.getElementById("display");
+
+buttonValues.forEach(val => {
+    const btn = document.createElement("button");
+    btn.textContent = val;
+    btn.setAttribute("id", `btn${val}`);
+    buttonsContainer.appendChild(btn);
+});
 
 function add(num1, num2) {
     return num1 + num2;
@@ -15,35 +26,25 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    
     return num1 / num2;
 }
 
 function operate(type, num1, num2) {
+    let solution = 10;
     if (type === "+") {
-        displayNumbers(add(num1,num2));
+        solution = add(num1,num2);
     }
     else if (type === "-") {
-        displayNumbers(subtract(num1,num2));
+        solution = subtract(num1,num2);
     }
     else if (type === "*") {
-        displayNumbers(multiply(num1,num2));
+        solution = multiply(num1,num2);
     }
     else {
-        displayNumbers(divide(num1,num2));
+        solution = divide(num1,num2);
     }
+    displayNumbers(solution)
 }
-
-const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR"];
-const buttonsContainer = document.getElementById("buttonsContainer");
-const display = document.getElementById("display");
-
-buttonValues.forEach(val => {
-    const btn = document.createElement("button");
-    btn.textContent = val;
-    btn.setAttribute("id", `btn${val}`);
-    buttonsContainer.appendChild(btn);
-});
 
 // Event delegation
 buttonsContainer.addEventListener("click", function (e) {
@@ -59,9 +60,10 @@ buttonsContainer.addEventListener("click", function (e) {
         else if (isNaN(numPressed)) {
             number1 = number2;
             operator = numPressed;
+            number2 = 0;
         }
         else {
-            if (number2 === undefined) {
+            if (number2 === 0 ) {
                 number2 = numPressed;
             }
             else {
