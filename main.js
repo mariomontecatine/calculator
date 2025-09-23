@@ -1,6 +1,7 @@
 let operator;
 let number1;
-let number2 = 0;
+let number2 = "0";
+let solution;
 
 const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR"];
 const buttonsContainer = document.getElementById("buttonsContainer");
@@ -30,7 +31,6 @@ function divide(num1, num2) {
 }
 
 function operate(type, num1, num2) {
-    let solution = 10;
     if (type === "+") {
         solution = add(num1, num2);
     }
@@ -43,42 +43,59 @@ function operate(type, num1, num2) {
     else {
         solution = divide(num1, num2);
     }
-    console.log(`${solution}`)
     displayNumbers(solution);
 }
 
 // Event delegation
 buttonsContainer.addEventListener("click", function (e) {
-    if (e.target && e.target.nodeName == "BUTTON") {
+    if (e.target && e.target.nodeName === "BUTTON") {
         let numPressed = e.target.id.replace("btn", "");
         if (numPressed === "=") {
-            operate(operator, Number(number1), Number(number2));
-            number2 = 0;
+            if (operator && number1 !== "" && number2 !== "") {
+                operate(operator, Number(number1), Number(number2));
+                number2 = String(solution);
+                number1 = "";
+                operator = null;
+            }
+            else {
+                operator = null;
+            }
+            return;
         }
         else if (numPressed === "CLEAR") {
-            number2 = 0;
+            number2 = "0";
+            number1 = "";
+            operator = null;
             displayNumbers(number2);
+            return;
         }
         // true si numPressed NO ES UN NUMERO
         else if (isNaN(numPressed)) {
-            number1 = number2;
-            operator = numPressed;
-            number2 = 0;
-            displayNumbers(number1);
+            if (operator && number1 !== "" && number2 !== "") {
+                operate(operator, Number(number1), Number(number2));
+                operator = numPressed;
+                number2 = "0";
+                number1 = String(solution);
+            }
+            else {
+                number1 = number2 === "" ? "0" : number2;
+                operator = numPressed;
+                number2 = "0";
+                displayNumbers(number1);
+            }
+            return;
         }
-
         else {
-            if (number2 === 0) {
+            if (number2 === "0") {
                 number2 = numPressed;
-                displayNumbers(number2);
             }
             else {
                 number2 += numPressed;
-                displayNumbers(number2);
+
             }
+            displayNumbers(number2);
 
         }
-        // se actualiza el display (y tambien intermediamente con cada numero) 
     }
 });
 
