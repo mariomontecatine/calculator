@@ -6,6 +6,7 @@ let solution;
 const buttonValues = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "=", "+", "-", "*", "/", "CLEAR"];
 const buttonsContainer = document.getElementById("buttonsContainer");
 const display = document.getElementById("display");
+const alert = document.getElementById("alert");
 
 buttonValues.forEach(val => {
     const btn = document.createElement("button");
@@ -50,12 +51,24 @@ function operate(type, num1, num2) {
 buttonsContainer.addEventListener("click", function (e) {
     if (e.target && e.target.nodeName === "BUTTON") {
         let numPressed = e.target.id.replace("btn", "");
+        alert.textContent = "";
         if (numPressed === "=") {
             if (operator && number1 !== "" && number2 !== "") {
-                operate(operator, Number(number1), Number(number2));
-                number2 = String(solution);
-                number1 = "";
-                operator = null;
+                if (number2 === "0" && operator === "/") {
+                    alert.textContent = "That was such a extremely difficult question for me..."
+                    number2 = "0";
+                    number1 = "";
+                    operator = null;
+                    displayNumbers(number2);
+                    return;
+                }
+                else {
+                    operate(operator, Number(number1), Number(number2));
+                    number2 = String(solution);
+                    number1 = "";
+                    operator = null;
+                    return;
+                }
             }
             else {
                 operator = null;
@@ -72,10 +85,20 @@ buttonsContainer.addEventListener("click", function (e) {
         // true si numPressed NO ES UN NUMERO
         else if (isNaN(numPressed)) {
             if (operator && number1 !== "" && number2 !== "") {
-                operate(operator, Number(number1), Number(number2));
-                operator = numPressed;
-                number2 = "0";
-                number1 = String(solution);
+                if (number2 === "0" && operator === "/") {
+                    alert.textContent = "That was such a extremely difficult question for me..."
+                    number2 = "0";
+                    number1 = "";
+                    operator = null;
+                    displayNumbers(number2);
+                    return;
+                }
+                else {
+                    operate(operator, Number(number1), Number(number2));
+                    operator = numPressed;
+                    number2 = "0";
+                    number1 = String(solution);
+                }
             }
             else {
                 number1 = number2 === "" ? "0" : number2;
@@ -86,7 +109,7 @@ buttonsContainer.addEventListener("click", function (e) {
             return;
         }
         else {
-            if (number2 === "0") {
+            if (number2 === "0" || (String(solution) === number2)) {
                 number2 = numPressed;
             }
             else {
@@ -99,7 +122,7 @@ buttonsContainer.addEventListener("click", function (e) {
     }
 });
 
-let displayCurrentValue = 0;
+let displayCurrentValue = "0";
 function displayNumbers(num) {
     displayCurrentValue = num;
     display.textContent = displayCurrentValue;
