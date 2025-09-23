@@ -51,31 +51,30 @@ function operate(type, num1, num2) {
 buttonsContainer.addEventListener("click", function (e) {
     if (e.target && e.target.nodeName == "BUTTON") {
         let numPressed = e.target.id.replace("btn", "");
-        // si es numero permitir acoplarlos (en plan si pones 1 y luego 2: 12)
-        // true si numPressed NO ES UN NUMERO
-        // cuando se le de a "=" se llama a operate
-        if (isNaN(numPressed) && numPressed === "=") {
-            operate(operator, parseInt(number1), parseInt(number2));
+        if (numPressed === "=") {
+            operate(operator, Number(number1), Number(number2));
             number2 = 0;
         }
-        // cuando se presione un operator se almacena el numero anterior y se lee otro
+        else if (numPressed === "CLEAR") {
+            number2 = 0;
+            displayNumbers(number2);
+        }
+        // true si numPressed NO ES UN NUMERO
         else if (isNaN(numPressed)) {
             number1 = number2;
             operator = numPressed;
             number2 = 0;
-            displayNumbers(number2);
-
+            displayNumbers(number1);
         }
+
         else {
             if (number2 === 0) {
                 number2 = numPressed;
                 displayNumbers(number2);
-
             }
             else {
                 number2 += numPressed;
                 displayNumbers(number2);
-
             }
 
         }
@@ -85,8 +84,8 @@ buttonsContainer.addEventListener("click", function (e) {
 
 let displayCurrentValue = 0;
 function displayNumbers(num) {
-    display.textContent = num;
     displayCurrentValue = num;
+    display.textContent = displayCurrentValue;
 }
 
 
