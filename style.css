@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+  font-family: "Orbitron", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#Calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 220px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  height: 300px;
+}
+
+[id^="btn"] {
+  flex-basis: 30%;
+  flex-grow: 1;
+  border: none;
+  border-radius: 5px;
+}
+
+#btnDivision,
+#btnMultiply,
+#btnAddition,
+#btnEqual,
+#btnDEL,
+#btnAC,
+#btnDot,
+#btnSubtract {
+  background-color: orange;
+}
+
+#btnDivision:hover,
+#btnMultiply:hover,
+#btnAddition:hover,
+#btnEqual:hover,
+#btnDEL:hover,
+#btnAC:hover,
+#btnDot:hover,
+#btnSubtract:hover {
+  background-color: rgb(213, 146, 20);
+}
+
+#btn0,
+#btn1,
+#btn2,
+#btn3,
+#btn4,
+#btn5,
+#btn6,
+#btn7,
+#btn8,
+#btn9 {
+  background-color: rgb(224, 215, 215);
+}
+
+#btn0:hover,
+#btn1:hover,
+#btn2:hover,
+#btn3:hover,
+#btn4:hover,
+#btn5:hover,
+#btn6:hover,
+#btn7:hover,
+#btn8:hover,
+#btn9:hover {
+  background-color: rgb(192, 183, 183);
+}
+
+#displayContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 1;
+  height: 50px;
+}
+
+#display {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+p {
+  margin-top: 5px;
+}
