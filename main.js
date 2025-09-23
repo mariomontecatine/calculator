@@ -56,6 +56,7 @@ buttonsContainer.addEventListener("click", function (e) {
         // cuando se le de a "=" se llama a operate
         if (isNaN(numPressed) && numPressed === "=") {
             operate(operator, parseInt(number1), parseInt(number2));
+            number2 = 0;
         }
         // cuando se presione un operator se almacena el numero anterior y se lee otro
         else if (isNaN(numPressed)) {
