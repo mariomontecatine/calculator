@@ -8,6 +8,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: beige;
 }
 
 #Calculator {
@@ -20,6 +21,7 @@ body {
   border-radius: 5px;
   margin-bottom: 20px;
   margin-top: 10px;
+  background-color: black;
 }
 
 
@@ -96,6 +98,7 @@ body {
 #display {
   font-size: 20px;
   margin-right: 5px;
+  color: white;
 }
 
 p {
