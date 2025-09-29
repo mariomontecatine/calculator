@@ -203,8 +203,17 @@ function handleInput(e) {
 
 let displayCurrentValue = "0";
 function displayNumbers(num) {
-  displayCurrentValue = num;
-  display.textContent = displayCurrentValue;
+  displayCurrentValue = String(num); 
+  if (displayCurrentValue.length >= 12) {
+    display.textContent = "OVERFLOW!!";
+    number2 = "0";
+    number1 = "";
+    operator = null;
+    alert.textContent = "DoN't Do ThAt!";
+  }
+  else {
+    display.textContent = displayCurrentValue;
+  }
 }
 
 // Keyboard support

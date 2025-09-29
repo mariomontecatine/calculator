@@ -93,6 +93,7 @@ body {
   align-items: center;
   flex-grow: 1;
   height: 50px;
+  overflow: hidden;
 }
 
 #display {
