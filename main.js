@@ -2,6 +2,7 @@ let operator;
 let number1;
 let number2 = "0";
 let solution;
+let locked = false;
 
 const buttonValues = [
   "1",
@@ -46,7 +47,7 @@ const validKeys = new Set([
 ]);
 const buttonsContainer = document.getElementById("buttonsContainer");
 const display = document.getElementById("display");
-const alert = document.getElementById("alert");
+const alertMsg = document.getElementById("alert");
 
 buttonValues.forEach((val) => {
   const btn = document.createElement("button");
@@ -104,8 +105,8 @@ document.addEventListener("keydown", function (e) {
   handleInput(e);
 });
 
-// Event delegation
 function handleInput(e) {
+  if (locked) return;
   let numPressed;
   const keyMap = {
     Division: "/",
@@ -126,12 +127,11 @@ function handleInput(e) {
     numPressed = keyMap[e.key] || e.key;
   }
 
-  alert.textContent = "";
+  alertMsg.textContent = "";
   if (numPressed === "=" || numPressed === "Enter") {
     if (operator && number1 !== "" && number2 !== "") {
       if (number2 === "0" && operator === "/") {
-        alert.textContent =
-          "You should not ask that type of questions...";
+        alertMsg.textContent = "You should not ask that type of questions...";
         number2 = "0";
         number1 = "";
         operator = null;
@@ -166,13 +166,10 @@ function handleInput(e) {
       number2 = "0";
     }
     displayNumbers(number2);
-  }
-  // true si numPressed NO ES UN NUMERO
-  else if (isNaN(numPressed)) {
+  } else if (isNaN(numPressed)) {
     if (operator && number1 !== "" && number2 !== "") {
       if (number2 === "0" && operator === "/") {
-        alert.textContent =
-          "You should not ask that type of questions...";
+        alertMsg.textContent = "You should not ask that type of questions...";
         number2 = "0";
         number1 = "";
         operator = null;
@@ -203,20 +200,24 @@ function handleInput(e) {
 
 let displayCurrentValue = "0";
 function displayNumbers(num) {
-  displayCurrentValue = String(num); 
-  if (displayCurrentValue.length >= 12) {
+  displayCurrentValue = String(num);
+
+  if (displayCurrentValue.length >= 13) {
     display.textContent = "OVERFLOW!!";
     number2 = "0";
     number1 = "";
     operator = null;
-    alert.textContent = "DoN't Do ThAt!";
-  }
-  else {
+    alertMsg.textContent = "DoN't Do ThAt!";
+    locked = true;
+    setTimeout(() => {
+      locked = false;
+      alertMsg.textContent = "";
+      displayNumbers(number2);
+    }, 1500);
+  } else {
     display.textContent = displayCurrentValue;
   }
 }
-
-// Keyboard support
 
 // document.addEventListener("keydown", (e) => {
 //     if (e.key === ) {
