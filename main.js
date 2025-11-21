@@ -1,3 +1,5 @@
+import { add, subtract, multiply, divide } from "./operations.js";
+
 let operator;
 let number1;
 let number2 = "0";
@@ -70,22 +72,6 @@ buttonValues.forEach((val) => {
   buttonsContainer.appendChild(btn);
 });
 
-function add(num1, num2) {
-  return num1 + num2;
-}
-
-function subtract(num1, num2) {
-  return num1 - num2;
-}
-
-function multiply(num1, num2) {
-  return num1 * num2;
-}
-
-function divide(num1, num2) {
-  return num1 / num2;
-}
-
 function operate(type, num1, num2) {
   if (type === "+") {
     solution = add(num1, num2);
@@ -96,6 +82,7 @@ function operate(type, num1, num2) {
   } else {
     solution = divide(num1, num2);
   }
+  solution = formatResult(solution);
   displayNumbers(solution);
 }
 
@@ -219,8 +206,8 @@ function displayNumbers(num) {
   }
 }
 
-// document.addEventListener("keydown", (e) => {
-//     if (e.key === ) {
+function formatResult(num) {
+  // Limita a 12 dígitos, elimina ceros extra
+  return parseFloat(num.toFixed(10)).toString();
+}
 
-//     }
-// })
